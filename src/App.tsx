@@ -1,15 +1,13 @@
-import { useState } from "react";
 import { fromWorker } from "./Helpers/fromWorker";
 import { useReactable } from "@reactables/react";
 import { ToggleState, ToggleActions, RxToggle } from "./RxToggle";
 import "./App.css";
+import MyForm from "./Components/MyForm";
 
 const USE_WORKER = true;
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  const [state, actions] = useReactable(() =>
+  const [formOpen, actions] = useReactable(() =>
     USE_WORKER
       ? fromWorker<ToggleState, ToggleActions>(
           new Worker(
@@ -26,18 +24,10 @@ function App() {
       <h1>Vite + React + Reactables + Web Workers</h1>
       <div className="card">
         <button onClick={() => actions.toggle()}>
-          Toggle is: {state ? "on" : "off"}
+          {formOpen ? "Close Form" : "Open Form"}
         </button>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {formOpen && <MyForm />}
     </>
   );
 }
