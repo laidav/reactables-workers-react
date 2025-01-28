@@ -1,4 +1,5 @@
 import { combine } from "@reactables/core";
+import { shareReplay } from "rxjs";
 import {
   build,
   group,
@@ -27,7 +28,7 @@ export interface MyFormActions {
 }
 
 export const RxMyForm = () => {
-  const rxFormArray = build(
+  const [state$, actions] = build(
     group({
       controls: {
         contacts: array({
@@ -40,7 +41,7 @@ export const RxMyForm = () => {
   const rxToggle = RxToggle();
 
   return combine({
-    form: rxFormArray,
+    form: [state$.pipe(shareReplay()), actions],
     toggle: rxToggle,
   });
 };
