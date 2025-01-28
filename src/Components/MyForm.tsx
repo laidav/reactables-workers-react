@@ -1,12 +1,24 @@
+import { fromWorker } from "../Helpers/fromWorker";
 import { useReactable } from "@reactables/react";
 import { Form, Field, FormArray } from "@reactables/react-forms";
 import Input from "./Input";
-import { RxFormArray, userConfig } from "./RxMyForm";
+import { RxMyForm, userConfig, MyFormState, MyFormActions } from "./RxMyForm";
 
+const USE_WORKER = true;
 const MyForm = () => {
-  const [state, actions] = useReactable(RxFormArray);
-  console.log(state, actions);
+  const [state, actions] = useReactable(() => {
+    return USE_WORKER
+      ? fromWorker<MyFormState, MyFormActions>(
+          new Worker(
+            new URL("./RxMyForm.worker.ts", import.meta.url),
 
+            { type: "module" }
+          )
+        )
+      : RxMyForm();
+  });
+
+  console.log(state, "in form", actions);
   if (!state) return <></>;
 
   return (

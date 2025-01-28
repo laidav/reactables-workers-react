@@ -1,6 +1,13 @@
 import { combine } from "@reactables/core";
-import { build, group, control, array } from "@reactables/forms";
-import { RxToggle } from "../RxToggle";
+import {
+  build,
+  group,
+  control,
+  array,
+  ControlModels,
+  RxFormActions,
+} from "@reactables/forms";
+import { RxToggle, ToggleState, ToggleActions } from "../RxToggle";
 
 export const userConfig = group({
   controls: {
@@ -9,7 +16,17 @@ export const userConfig = group({
   },
 });
 
-export const RxFormArray = () => {
+export interface MyFormState {
+  form: ControlModels.Form<unknown>;
+  toggle: ToggleState;
+}
+
+export interface MyFormActions {
+  form: RxFormActions;
+  toggle: ToggleActions;
+}
+
+export const RxMyForm = () => {
   const rxFormArray = build(
     group({
       controls: {

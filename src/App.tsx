@@ -11,7 +11,7 @@ function App() {
     USE_WORKER
       ? fromWorker<ToggleState, ToggleActions>(
           new Worker(
-            new URL("./Rxtoggle.worker.ts", import.meta.url),
+            new URL("./RxToggle.worker.ts", import.meta.url),
 
             { type: "module" }
           )
