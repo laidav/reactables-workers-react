@@ -1,26 +1,24 @@
 import { useState } from "react";
 import { fromWorker } from "./Helpers/fromWorker";
 import { useReactable } from "@reactables/react";
-import { of } from "rxjs";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import { ToggleState, ToggleActions } from "./RxToggle";
+import { ToggleState, ToggleActions, RxToggle } from "./RxToggle";
 import "./App.css";
+
+const USE_WORKER = true;
 
 function App() {
   const [count, setCount] = useState(0);
 
   const [state, actions] = useReactable(() =>
-    fromWorker<ToggleState, ToggleActions>(
-      new Worker(
-        new URL("./Rxtoggle.worker.ts", import.meta.url),
+    USE_WORKER
+      ? fromWorker<ToggleState, ToggleActions>(
+          new Worker(
+            new URL("./Rxtoggle.worker.ts", import.meta.url),
 
-        { type: "module" }
-      ),
-      {
-        sources: [of({ type: "toggle" })],
-      }
-    )
+            { type: "module" }
+          )
+        )
+      : RxToggle()
   );
 
   return (
