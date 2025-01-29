@@ -32,7 +32,7 @@ export const RxMyForm = () => {
     group({
       controls: {
         contacts: array({
-          controls: [userConfig],
+          controls: [...new Array(1).fill(userConfig)],
         }),
       },
     })
