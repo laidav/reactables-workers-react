@@ -28,7 +28,7 @@ export type MyFormActions = {
 } & { destroy?: () => void };
 
 export const RxMyForm = (): Reactable<MyFormState, MyFormActions> => {
-  const [state$, actions] = build(
+  const [state$, actions, actions$] = build(
     group({
       controls: {
         contacts: array({
@@ -44,6 +44,7 @@ export const RxMyForm = (): Reactable<MyFormState, MyFormActions> => {
     form: [
       state$.pipe(shareReplay({ bufferSize: 1, refCount: true })),
       actions,
+      actions$,
     ],
     toggle: rxToggle,
   });
