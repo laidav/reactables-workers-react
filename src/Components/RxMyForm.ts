@@ -41,7 +41,10 @@ export const RxMyForm = () => {
   const rxToggle = RxToggle();
 
   return combine({
-    form: [state$.pipe(shareReplay()), actions],
+    form: [
+      state$.pipe(shareReplay({ bufferSize: 1, refCount: true })),
+      actions,
+    ],
     toggle: rxToggle,
   });
 };
