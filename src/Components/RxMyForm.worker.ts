@@ -1,3 +1,3 @@
-import { toWorker } from "../Helpers/toWorker";
+import { toWorker } from "@reactables/web-workers";
 import { RxMyForm } from "./RxMyForm";
 toWorker(RxMyForm);

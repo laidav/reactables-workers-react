@@ -1,4 +1,4 @@
-import { fromWorker } from "./Helpers/fromWorker";
+import { fromWorker } from "@reactables/web-workers";
 import { useReactable } from "@reactables/react";
 import { ToggleState, ToggleActions, RxToggle } from "./RxToggle";
 import "./App.css";

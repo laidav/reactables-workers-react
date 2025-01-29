@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { fromWorker } from "../Helpers/fromWorker";
+import { fromWorker } from "@reactables/web-workers";
 import { useReactable } from "@reactables/react";
 import { Form, Field, FormArray } from "@reactables/react-forms";
 import Input from "./Input";
