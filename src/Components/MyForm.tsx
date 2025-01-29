@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { fromWorker } from "../Helpers/fromWorker";
 import { useReactable } from "@reactables/react";
 import { Form, Field, FormArray } from "@reactables/react-forms";
@@ -17,6 +18,15 @@ const MyForm = () => {
         )
       : RxMyForm();
   });
+
+  useEffect(
+    () => () => {
+      if (actions.destroy) {
+        actions.destroy();
+      }
+    },
+    [actions]
+  );
 
   if (!state) return <></>;
 

@@ -1,4 +1,4 @@
-import { combine } from "@reactables/core";
+import { combine, Reactable } from "@reactables/core";
 import { shareReplay } from "rxjs";
 import {
   build,
@@ -22,12 +22,12 @@ export interface MyFormState {
   toggle: ToggleState;
 }
 
-export interface MyFormActions {
+export type MyFormActions = {
   form: RxFormActions;
   toggle: ToggleActions;
-}
+} & { destroy?: () => void };
 
-export const RxMyForm = () => {
+export const RxMyForm = (): Reactable<MyFormState, MyFormActions> => {
   const [state$, actions] = build(
     group({
       controls: {
