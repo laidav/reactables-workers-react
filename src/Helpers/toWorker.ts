@@ -63,7 +63,10 @@ export const toWorker = <State, Actions>(
               typeof source[key] === "object" &&
               typeof source[key] !== "function"
             ) {
-              dest[key] = source[key];
+              dest[key] = Object.keys(source[key]).reduce(
+                (acc, key) => ({ ...acc, [key]: null }),
+                {}
+              );
               assignNull(source[key] as ActionMap, dest[key]);
             } else {
               dest[key] = null;

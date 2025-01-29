@@ -4,7 +4,7 @@ import { Form, Field, FormArray } from "@reactables/react-forms";
 import Input from "./Input";
 import { RxMyForm, userConfig, MyFormState, MyFormActions } from "./RxMyForm";
 
-const USE_WORKER = false;
+const USE_WORKER = true;
 const MyForm = () => {
   const [state, actions] = useReactable(() => {
     return USE_WORKER
