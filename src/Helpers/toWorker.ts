@@ -82,7 +82,6 @@ export const toWorker = <State, Actions>(
         });
 
         state$.pipe(takeUntil(destroy$)).subscribe((state) => {
-          console.log(state, "off the thread");
           postMessage({
             type: FromWorkerMessageTypes.State,
             state,

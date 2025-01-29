@@ -18,7 +18,6 @@ const MyForm = () => {
       : RxMyForm();
   });
 
-  console.log(state, "in form", actions);
   if (!state) return <></>;
 
   return (
