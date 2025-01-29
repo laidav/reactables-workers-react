@@ -19,14 +19,7 @@ const MyForm = () => {
       : RxMyForm();
   });
 
-  useEffect(
-    () => () => {
-      if (actions.destroy) {
-        actions.destroy();
-      }
-    },
-    [actions]
-  );
+  useEffect(() => () => actions.destroy?.(), [actions]);
 
   if (!state) return <></>;
 
