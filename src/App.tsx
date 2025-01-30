@@ -8,26 +8,27 @@ import {
   ExpensiveDataStatus,
 } from "./Rx/RxExpensiveData";
 import DataService from "./DataService";
+
+const createWorker = (pathUrl: string) =>
+  new Worker(new URL(pathUrl, import.meta.url), { type: "module" });
+
+// Toggle this to turn worker on/off to test blocking on main thread.
 const USE_WORKER = true;
 
 function App() {
-  const [state, actions] = useReactable(() =>
+  const [count, setCount] = useState(0);
+
+  const [expensiveDataState, actions] = useReactable(() =>
     USE_WORKER
       ? fromWorker<ExpensiveDataState, ExpensiveDataActions>(
-          new Worker(
-            new URL("./RxToggle.worker.ts", import.meta.url),
-
-            { type: "module" }
-          )
+          createWorker("./Rx/RxExpensiveData.worker.ts")
         )
       : RxExpensiveData({ deps: { dataService: new DataService() } })
   );
 
-  const [count, setCount] = useState(0);
+  if (!expensiveDataState) return;
 
-  if (!state) return;
-
-  const { status, data } = state;
+  const { status, data } = expensiveDataState;
 
   return (
     <>
