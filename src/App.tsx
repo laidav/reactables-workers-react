@@ -12,12 +12,10 @@ import DataService from "./DataService";
 const createWorker = (pathUrl: string) =>
   new Worker(new URL(pathUrl, import.meta.url), { type: "module" });
 
-// Toggle this to turn worker on/off to test blocking on main thread.
+// TOGGLE THIS TO TURN WORKER ON/OFF TO TEST BLOCKING ON MAIN THREAD.
 const USE_WORKER = true;
 
 function App() {
-  const [count, setCount] = useState(0);
-
   const [expensiveDataState, actions] = useReactable(() =>
     USE_WORKER
       ? fromWorker<ExpensiveDataState, ExpensiveDataActions>(
@@ -25,6 +23,9 @@ function App() {
         )
       : RxExpensiveData({ deps: { dataService: new DataService() } })
   );
+
+  // Increment the counter to see if the main UI thread is blocked;
+  const [count, setCount] = useState(0);
 
   if (!expensiveDataState) return;
 
