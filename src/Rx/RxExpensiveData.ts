@@ -47,7 +47,7 @@ export const RxExpensiveData: ReactableFactory<
               ),
               mergeMap((data) => {
                 return concat(
-                  of({ type: "processingData" }),
+                  of({ type: "processingData" }), // Notify data has been received and processing data.
                   of(data).pipe(
                     delay(100), // Just so we can see the processing message when we are not using the worker
                     map((data) => {
