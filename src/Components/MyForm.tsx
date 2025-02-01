@@ -7,18 +7,20 @@ import Input from "./Input";
 import { RxMyForm, userConfig, MyFormState, MyFormActions } from "./RxMyForm";
 
 const USE_WORKER = true;
+const USE_STORE_VALUE = false;
+const createWorker = () =>
+  new Worker(
+    new URL("./RxMyForm.worker.ts", import.meta.url),
+
+    { type: "module" }
+  );
+
 const MyForm = () => {
   const [state, actions] = useReactable(() => {
     return USE_WORKER
-      ? storeValue(
-          fromWorker<MyFormState, MyFormActions>(
-            new Worker(
-              new URL("./RxMyForm.worker.ts", import.meta.url),
-
-              { type: "module" }
-            )
-          )
-        )
+      ? USE_STORE_VALUE
+        ? storeValue(fromWorker<MyFormState, MyFormActions>(createWorker()))
+        : fromWorker<MyFormState, MyFormActions>(createWorker())
       : RxMyForm();
   });
 
