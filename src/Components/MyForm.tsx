@@ -1,3 +1,4 @@
+import { storeValue } from "@reactables/core";
 import { useEffect } from "react";
 import { fromWorker } from "@reactables/web-workers";
 import { useReactable } from "@reactables/react";
@@ -9,11 +10,13 @@ const USE_WORKER = true;
 const MyForm = () => {
   const [state, actions] = useReactable(() => {
     return USE_WORKER
-      ? fromWorker<MyFormState, MyFormActions>(
-          new Worker(
-            new URL("./RxMyForm.worker.ts", import.meta.url),
+      ? storeValue(
+          fromWorker<MyFormState, MyFormActions>(
+            new Worker(
+              new URL("./RxMyForm.worker.ts", import.meta.url),
 
-            { type: "module" }
+              { type: "module" }
+            )
           )
         )
       : RxMyForm();
