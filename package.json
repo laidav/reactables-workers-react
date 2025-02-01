@@ -7,6 +7,7 @@
     "dev": "vite --force",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "link-packages": "npm link @reactables/core @reactables/react @reactables/web-workers",
     "preview": "vite preview"
   },
   "dependencies": {
