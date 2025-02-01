@@ -1,6 +1,7 @@
 import { concat, of } from "rxjs";
 import { mergeMap, map, delay } from "rxjs/operators";
 import { RxBuilder, type Reactable } from "@reactables/core";
+import { ReactableFactory } from "@reactables/web-workers";
 import DataService from "../DataService";
 
 export enum ExpensiveDataStatus {
@@ -24,12 +25,11 @@ const initialState: ExpensiveDataState = {
   status: ExpensiveDataStatus.Initialized,
 };
 
-export const RxExpensiveData = ({
-  deps: { dataService },
-}: {
-  deps: {
-    dataService: DataService;
-  };
+export const RxExpensiveData: ReactableFactory<
+  ExpensiveDataState,
+  ExpensiveDataActions
+> = (config?: {
+  deps?: { dataService?: DataService };
 }): Reactable<ExpensiveDataState, ExpensiveDataActions> =>
   RxBuilder({
     initialState,
@@ -42,7 +42,9 @@ export const RxExpensiveData = ({
         effects: [
           (getExpensiveData$) =>
             getExpensiveData$.pipe(
-              mergeMap(() => dataService.getData()),
+              mergeMap(() =>
+                (config?.deps?.dataService as DataService).getData()
+              ),
               mergeMap((data) => {
                 return concat(
                   of({ type: "processingData" }),
