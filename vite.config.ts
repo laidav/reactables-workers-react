@@ -5,7 +5,11 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ["@reactables/core", "@reactables/web-workers"],
+    include: [
+      "@reactables/core",
+      "@reactables/react",
+      "@reactables/web-workers",
+    ],
   },
   build: {
     commonjsOptions: {
