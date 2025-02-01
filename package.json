@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --force",
     "build": "tsc -b && vite build",
+    "link-packages": "npm link @reactables/core @reactables/react @reactables/web-workers",
     "lint": "eslint .",
     "preview": "vite preview"
   },
