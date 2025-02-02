@@ -14,6 +14,7 @@ const createWorker = (pathUrl: string) =>
 
 // TOGGLE THIS TO TURN WORKER ON/OFF TO TEST BLOCKING ON MAIN THREAD.
 const USE_WORKER = true;
+// const USE_WORKER = false;
 
 function App() {
   const [expensiveDataState, actions] = useReactable(() =>
