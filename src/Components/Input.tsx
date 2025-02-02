@@ -2,7 +2,7 @@ import { WrappedFieldProps } from "@reactables/react-forms";
 const Input = ({
   input,
   label,
-  meta: { touched, errors, pending, valid },
+  meta: { touched, errors, valid },
 }: { label?: string } & WrappedFieldProps) => {
   return (
     <div className="mb-3">
