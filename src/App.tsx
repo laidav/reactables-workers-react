@@ -1,5 +1,6 @@
 import { fromWorker } from "@reactables/web-workers";
 import { useReactable } from "@reactables/react";
+import { of } from "rxjs";
 import { ToggleState, ToggleActions, RxToggle } from "./RxToggle";
 import "./App.css";
 import MyForm from "./Components/MyForm";
@@ -16,9 +17,14 @@ function App() {
               new URL("./RxToggle.worker.ts", import.meta.url),
 
               { type: "module" }
-            )
+            ),
+            { sources: [of({ type: "toggle" })] } // Testing sources
+            // { props: { initialState: true } } // Testing props
           )
-        : RxToggle()) as Reactable<ToggleState, ToggleActions>
+        : RxToggle({ sources: [of({ type: "toggle" })] })) as Reactable<
+        ToggleState,
+        ToggleActions
+      >
   );
 
   return (
