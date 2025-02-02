@@ -21,7 +21,7 @@ function App() {
       ? fromWorker<ExpensiveDataState, ExpensiveDataActions>(
           createWorker("./Rx/RxExpensiveData.worker.ts")
         )
-      : RxExpensiveData({ deps: { dataService: new DataService() } })
+      : RxExpensiveData({ dataService: new DataService() })
   );
 
   // Increment the counter to see if the main UI thread is blocked;
